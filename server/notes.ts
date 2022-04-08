@@ -1,13 +1,27 @@
 import mysql, {Connection} from "mysql";
 import {NotesMap} from "../interfaces";
 
+interface MySQLConfigType {
+  host: string
+  user: string
+  password: string
+  database: string
+  ssl?: { rejectUnauthorized: boolean }
+}
+
 function useConnection(): Connection {
-  return mysql.createConnection({
+  const config: MySQLConfigType = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-  })
+  }
+  if (!process.env.DB_NO_SSL) {
+    config.ssl = {
+      rejectUnauthorized: !process.env.DB_SSL
+    }
+  }
+  return mysql.createConnection(config)
 }
 
 export async function selectNotes(): Promise<NotesMap> {
