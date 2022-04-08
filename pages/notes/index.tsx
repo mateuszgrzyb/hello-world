@@ -1,8 +1,8 @@
-import Layout from "../../../hello-world.old/components/layout";
 import useNotes from "../../utils/notes";
 import {GetServerSideProps} from "next";
 import {selectNotes} from "../../server/notes";
 import {NotesMap} from "../../interfaces";
+import Layout from "../../components/Layout";
 
 interface NotesProps {
   notes: NotesMap
