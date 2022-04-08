@@ -44,7 +44,7 @@ export async function insertNote(note: string): Promise<NotesMap> {
   const connection = useConnection()
 
   return new Promise((resolve, reject) =>
-    connection.query("INSERT INTO notes (text) values (?) returning (text)", [note], (err, rows, _) => {
+    connection.query("INSERT INTO notes (text) values (?)", [note], (err, rows, _) => {
       if (err) {
         console.warn(err)
         reject(err)
